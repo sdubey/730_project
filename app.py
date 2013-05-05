@@ -1,5 +1,5 @@
 #!/usr/bin/python
-from bottle import route, run, template
+from bottle import route, run, template, post, request
 
 #@route('/hello/:name')
 #def index(name='World'):
@@ -15,9 +15,11 @@ def read(filename):
 def index():
     return read('home.html')
 
-@route('/trend')
+
+@post('/trend') # or @route('/trend', method='POST')
 def trend():
-    return 'I am so stupid'
+    date     = request.forms.get('date')
+    return template('The date is: {{date}}', date=date)
 
 
 run(host='localhost', port=8080)
