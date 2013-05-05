@@ -1,4 +1,5 @@
 #!/usr/bin/python
+from trend import trend
 from bottle import route, run, template, post, request
 
 #@route('/hello/:name')
@@ -16,10 +17,14 @@ def index():
 
 
 @post('/trend') # or @route('/trend', method='POST')
-def trend():
+def run_trend():
     date     = request.forms.get('date')
     input_file = 'data/%s.txt' %(date)
-    return read(input_file)
+    output_dir = '/tmp/%s' %(date)
+    trend.trend(input_file, output_dir)
+
+    output_file = '%s/part-00000' %(output_dir)
+    return read(output_file)
 
 
 run(host='localhost', port=8080)
