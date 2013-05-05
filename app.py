@@ -6,7 +6,6 @@ from bottle import route, run, template, post, request
 #    return template('<b>Hello {{name}}</b>!', name=name)
 
 
-
 def read(filename):
 	with open(filename, 'r') as f:
 		return f.read()
@@ -19,7 +18,8 @@ def index():
 @post('/trend') # or @route('/trend', method='POST')
 def trend():
     date     = request.forms.get('date')
-    return template('The date is: {{date}}', date=date)
+    input_file = 'data/%s.txt' %(date)
+    return read(input_file)
 
 
 run(host='localhost', port=8080)
