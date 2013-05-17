@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="../lib/d3.js"></script>
+<script src="../lib/d3.layout.cloud.js"></script>
+<body>
+<script>
+  var fill = d3.scale.category20();
+
+  d3.layout.cloud().size([1000, 1000])
+  .words([
+  ["love", 43920],
+  ["follow", 30266],
+  ["good", 26163],
+  ["today", 21028],
+  ["people", 20257],
+  ["day", 18664],
+  ["time", 18641],
+  ["happy", 11191],
+  ["stats:", 10950],
+  ["@real_liam_payne", 10100],
+  ["great", 9320],
+  ["school", 9173],
+  ["work", 9031],
+  ["night", 8630],
+  ["man", 8557],
+  ["miss", 8557],
+  ["#gameinsight", 8360],
+  ["followers", 7535],
+  ["@niallofficial", 5908],
+  ["birthday", 5587]].map(function(x) {
+        return {text: x[0], size: 0.005*x[1]};
+      }))
+      .rotate(function() { return 0; })
+      .font("Impact")
+      .fontSize(function(d) { return d.size; })
+      .on("end", draw)
+      .start();
+
+  function draw(words) {
+    d3.select("body").append("svg")
+        .attr("width", 2000)
+        .attr("height", 2000)
+      .append("g")
+        .attr("transform", "translate(800,400)")
+      .selectAll("text")
+        .data(words)
+      .enter().append("text")
+        .style("font-size", function(d) { return d.size + "px"; })
+        .style("font-family", "Impact")
+        .style("fill", function(d, i) { return fill(i); })
+        .attr("text-anchor", "middle")
+        .attr("transform", function(d) {
+          return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+        })
+        .text(function(d) { return d.text; });
+  }
+</script>
+
+
+</body>
+</html>

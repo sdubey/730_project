@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="../lib/d3.js"></script>
+<script src="../lib/d3.layout.cloud.js"></script>
+<body>
+<script>
+  var fill = d3.scale.category20();
+
+  d3.layout.cloud().size([1000, 1000])
+  .words([
+  ["love", 36838],
+  ["good", 24795],
+  ["today", 20498],
+  ["follow", 19193],
+  ["people", 17650],
+  ["day", 17459],
+  ["time", 17264],
+  ["happy", 11947],
+  ["feel", 10510],
+  ["life", 10066],
+  ["great", 9577],
+  ["hate", 9521],
+  ["night", 9473],
+  ["work", 8352],
+  ["#gameinsight", 8247],
+  ["give", 7978],
+  ["home", 7974],
+  ["man", 7703],
+  ["game", 7682],
+  ["miss", 7630]
+  ].map(function(x) {
+        return {text: x[0], size: 0.005*x[1]};
+      }))
+      .rotate(function() { return 0; })
+      .font("Impact")
+      .fontSize(function(d) { return d.size; })
+      .on("end", draw)
+      .start();
+
+  function draw(words) {
+    d3.select("body").append("svg")
+        .attr("width", 2000)
+        .attr("height", 2000)
+      .append("g")
+        .attr("transform", "translate(800,400)")
+      .selectAll("text")
+        .data(words)
+      .enter().append("text")
+        .style("font-size", function(d) { return d.size + "px"; })
+        .style("font-family", "Impact")
+        .style("fill", function(d, i) { return fill(i); })
+        .attr("text-anchor", "middle")
+        .attr("transform", function(d) {
+          return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+        })
+        .text(function(d) { return d.text; });
+  }
+</script>
+
+
+</body>
+</html>

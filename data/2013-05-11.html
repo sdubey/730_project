@@ -7,12 +7,29 @@
   var fill = d3.scale.category20();
 
   d3.layout.cloud().size([1000, 1000])
-      .words([
-        ["Hello", 10],
-        ["world", 20],
-        ["normally", 30],
-        ["you", 100]].map(function(x) {
-        return {text: x[0], size: 10 + x[1]};
+  .words([
+  ["love", 32459],
+  ["good", 19346],
+  ["follow", 17265],
+  ["today", 16989],
+  ["day", 16589],
+  ["people", 14157],
+  ["time", 13616],
+  ["happy", 11571],
+  ["feel", 8568],
+  ["life", 8201],
+  ["stats:", 8036],
+  ["wanna", 8019],
+  ["night", 8011],
+  ["hate", 7419],
+  ["gonna", 7336],
+  ["great", 7175],
+  ["#gameinsight", 6342],
+  ["work", 6063],
+  ["hope", 5912],
+  ["followers", 5658]
+  ].map(function(x) {
+        return {text: x[0], size: 0.005*x[1]};
       }))
       .rotate(function() { return 0; })
       .font("Impact")
